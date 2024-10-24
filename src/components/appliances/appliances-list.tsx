@@ -1,4 +1,5 @@
-// components/appliances/appliances-list.tsx
+'use client'
+import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +14,7 @@ import {
     Activity
 } from "lucide-react";
 
-const appliances = [
+const initialAppliances = [
     {
         id: 1,
         name: "Washing Machine",
@@ -59,6 +60,22 @@ const appliances = [
 ];
 
 export function AppliancesList() {
+    const [appliances, setAppliances] = useState(initialAppliances);
+
+    const handleToggle = (id: any) => {
+        setAppliances(prevAppliances =>
+            prevAppliances.map(appliance =>
+                appliance.id === id
+                    ? {
+                        ...appliance,
+                        isOn: !appliance.isOn,
+                        status: !appliance.isOn ? "Running" : "Standby"
+                    }
+                    : appliance
+            )
+        );
+    };
+
     return (
         <div className="grid gap-4">
             {appliances.map((appliance) => {
@@ -68,10 +85,8 @@ export function AppliancesList() {
                         <CardContent className="p-4">
                             <div className="flex items-start justify-between">
                                 <div className="flex items-start gap-4">
-                                    <div className={`p-2 rounded-lg ${appliance.isOn ? 'bg-green-100' : 'bg-gray-100'
-                                        }`}>
-                                        <Icon className={`w-6 h-6 ${appliance.isOn ? 'text-green-600' : 'text-gray-600'
-                                            }`} />
+                                    <div className={`p-2 rounded-lg ${appliance.isOn ? 'bg-green-100' : 'bg-gray-100'}`}>
+                                        <Icon className={`w-6 h-6 ${appliance.isOn ? 'text-green-600' : 'text-gray-600'}`} />
                                     </div>
                                     <div>
                                         <h3 className="font-medium">{appliance.name}</h3>
@@ -95,8 +110,7 @@ export function AppliancesList() {
                                                 </div>
                                             )}
                                             <div className="flex items-center gap-1">
-                                                <Wifi className={`w-4 h-4 ${appliance.isOn ? 'text-green-500' : 'text-gray-400'
-                                                    }`} />
+                                                <Wifi className={`w-4 h-4 ${appliance.isOn ? 'text-green-500' : 'text-gray-400'}`} />
                                             </div>
                                         </div>
 
@@ -112,9 +126,11 @@ export function AppliancesList() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <Activity className={`w-4 h-4 ${appliance.isOn ? 'text-green-500' : 'text-gray-300'
-                                        }`} />
-                                    <Switch checked={appliance.isOn} />
+                                    <Activity className={`w-4 h-4 ${appliance.isOn ? 'text-green-500' : 'text-gray-300'}`} />
+                                    <Switch
+                                        checked={appliance.isOn}
+                                        onCheckedChange={() => handleToggle(appliance.id)}
+                                    />
                                 </div>
                             </div>
                         </CardContent>
@@ -124,3 +140,5 @@ export function AppliancesList() {
         </div>
     );
 }
+
+export default AppliancesList;
