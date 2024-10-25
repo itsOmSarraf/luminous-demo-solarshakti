@@ -131,13 +131,7 @@ Solar Shakti addresses key challenges in solar energy management:
 
 ## 🔮 Future Plans
 
-- Enhanced AI predictions for energy consumption
-- Advanced automation features
-- Grid energy trading capabilities
-- Expanded device compatibility
-- Community energy sharing features
-- Integration with more smart home devices
-- Advanced weather-based optimization
+- Let's discuss that in person 😉
 
 ## 💡 Innovation Highlights
 
